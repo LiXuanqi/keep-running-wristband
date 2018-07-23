@@ -2,7 +2,10 @@ package app.domain;
 
 import lombok.Data;
 
+import javax.persistence.Embeddable;
+
 @Data // auto generate setter and getter.
+@Embeddable
 public class UnitInfo {
     private final String runningId;
     private String bandMake;
