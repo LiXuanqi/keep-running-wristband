@@ -1,9 +1,11 @@
 package app.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Embeddable;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data // auto generate setter and getter.
 @Embeddable
 public class UnitInfo {
