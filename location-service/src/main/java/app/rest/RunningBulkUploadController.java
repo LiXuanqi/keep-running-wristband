@@ -1,5 +1,6 @@
 package app.rest;
 
+
 import app.domain.Location;
 import app.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class RunningBulkUploadController {
 
     @RequestMapping(value = "/running/{movementType}", method = RequestMethod.GET)
     public Page<Location> findByMovementType(@PathVariable String movementType,
-                                             @RequestParam(name = "page") int page,
-                                             @RequestParam(name = "size") int size) {
+                                             @RequestParam(name = "page", required = false) Integer page,
+                                             @RequestParam(name = "size", required = false) Integer size) {
         return this.locationService.findByRunnerMovementType(movementType, new PageRequest(page, size));
     }
 }
