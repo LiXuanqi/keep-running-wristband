@@ -1,5 +1,8 @@
 package app.domain;
 
+import lombok.Data;
+
+@Data // auto generate setter and getter.
 public class UnitInfo {
     private final String runningId;
     private String bandMake;
