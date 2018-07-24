@@ -13,6 +13,11 @@ import javax.persistence.Embeddable;
 public class UserInfo {
     private String username;
     private String address;
+
+    public UserInfo() {
+
+    }
+
     public UserInfo(@JsonProperty("username") String username, @JsonProperty("address") String address) {
         this.username = username;
         this.address = address;
