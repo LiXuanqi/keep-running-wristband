@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -48,7 +49,7 @@ public class Location {
     private GpsStatus gpsStatus;
 
     private double odometer;
-    ;
+
     private double totalRunningTime;
     private double totalIdleTime;
     private double totalCaloriesBurnt;
@@ -73,5 +74,8 @@ public class Location {
     }
     public String getRunningId() {
         return this.unitInfo == null ? null : this.unitInfo.getRunningId();
+    }
+    public int getHeartRate() {
+        return ThreadLocalRandom.current().nextInt(50, 160);
     }
 }

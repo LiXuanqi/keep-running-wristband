@@ -2,10 +2,8 @@ package app.rest;
 
 
 import app.domain.Location;
-import app.service.LocationService;
+import app.domain.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,25 +11,25 @@ import java.util.List;
 
 @RestController
 public class RunningBulkUploadController {
+
+
+    private LocationRepository repository;
+
     @Autowired
-    private LocationService locationService;
+    public RunningBulkUploadController(LocationRepository repository) {
+        this.repository = repository;
+
+    }
 
     @RequestMapping(value = "/running", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void upload(@RequestBody List<Location> locations) {
-        locationService.saveRunningLocations(locations);
+    public void upload(@RequestBody List<Location> locations) throws Exception {
+        repository.saveAll(locations);
     }
 
-    // delete forever
-    @RequestMapping(value = "/purge", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/purge", method = RequestMethod.POST)
     public void purge() {
-        locationService.deleteAll();
+        repository.deleteAll();
     }
 
-    @RequestMapping(value = "/running/{movementType}", method = RequestMethod.GET)
-    public Page<Location> findByMovementType(@PathVariable String movementType,
-                                             @RequestParam(name = "page", required = false) Integer page,
-                                             @RequestParam(name = "size", required = false) Integer size) {
-        return this.locationService.findByRunnerMovementType(movementType, new PageRequest(page, size));
-    }
 }

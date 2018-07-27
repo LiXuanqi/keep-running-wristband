@@ -2,13 +2,17 @@ package app.domain;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-// JpaRepository<Entity, id>
-// should be deleted and replace with RestRepository.
-public interface LocationRepository extends JpaRepository<Location, Long> {
-    Page<Location> findByRunnerMovementType(@Param("movementType") Location.RunnerMovementType movementType, Pageable pageable);
+@RepositoryRestResource(path = "locations", collectionResourceRel = "locations")
+public interface LocationRepository extends PagingAndSortingRepository<Location, Long> {
+
+    @RestResource(path = "runningId", rel = "by-runningId")
+    Page<Location> findByUnitInfoRunningId(@Param("runningId") String runningId, Pageable pageable);
+
+    @RestResource(rel = "by-service-type")
+    Page<Location> findByServiceType(@Param("type") String type, Pageable pageable);
 }
-
-// pagination, how to implement by sql.

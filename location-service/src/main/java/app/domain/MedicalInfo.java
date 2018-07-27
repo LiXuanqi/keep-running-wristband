@@ -10,16 +10,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class MedicalInfo {
 
+    private final String vin;
     private long bfr;
 
     private long fmi;
 
-    public MedicalInfo() {
-
-    }
-
-    public MedicalInfo(long bfr, long fmi) {
-        this.bfr = bfr;
-        this.fmi = fmi;
+    @SuppressWarnings("unused")
+    private MedicalInfo() {
+        this.vin = "";
     }
 }
